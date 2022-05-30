@@ -1,0 +1,6 @@
+public
+node_modules
+.cache
+graphql-types.ts
+postcss.config.js
+vite.config.ts
