@@ -3,54 +3,23 @@ import {render} from 'solid-js/web';
 
 import HeroVideoSource from '@media/video/hero_section.mp4';
 
-const HeroSection = stw('header')`
-  flex
-  flex-col
-
-  absolute
-  items-center
-  h-[60vh]
-  w-screen
-`;
-
-const HeroTitleVideo = stw('video')`
-  inline-block
-
-  absolute
-  top-0
-  left-0
-
-  opacity-90
-  w-full
-  h-full
-
-  object-cover
-  -z-10
-`;
-
-const ContentWrapper = stw('main')`
-  flex
-  flex-col
-
-  absolute
-  top-[60vh]
-  left-0
-  
-  w-screen
-  h-[100vh]
-
-  p-10
-`;
+import {HeroSection, HeroTitleVideo,
+  StyledMovingHeroTitle, ContentWrapper} from '@style/pages/index';
 
 render(() => {
   return (
     <>
       <HeroSection>
-        <HeroTitle onScroll={()=>{moveTitleOnScroll()}}>People exist</HeroTitle>
+        <StyledMovingHeroTitle
+          endX={0.05}
+          endY={0.1}
+          throttle={0.05}
+        >
+          People exist
+        </StyledMovingHeroTitle>
         <HeroTitleVideo autoplay playsinline loop muted src={HeroVideoSource} type='video/mp4'/ >
       </HeroSection>
       <ContentWrapper>
-        <div>s</div>
       </ContentWrapper>
     </>
   );

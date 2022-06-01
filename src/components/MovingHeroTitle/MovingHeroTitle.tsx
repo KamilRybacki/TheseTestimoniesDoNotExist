@@ -2,50 +2,64 @@ import * as Solid from 'solid-js';
 
 type MovingHeroTitleProps = {
   children: Element | Element[]
-  dx: string | number
-  dy: string | number
+  style: CSSStyleDeclaration
+  endX: number
+  endY: number
+  throttle: number
 }
 
-type Position = {
-  'x': number
+type CartesianPixelMeasures = {
+  'x': number,
   'y': number
 }
 
 const MovingHeroTitle: Solid.Component<MovingHeroTitleProps> = (props) => {
-  const thisTitleId = Solid.createUniqueId();
-  const [translationParameters, rest] = Solid.splitProps(props, [
-    'children',
-    'dx',
-    'dy',
-  ]);
+  let titleElement: HTMLHeadingElement;
+  const [mainProps, rest] = Solid.splitProps(props, ['children', 'endX', 'endY', 'throttle']);
 
-  const [titleElement, setTitleElementPointer] = Solid.createSignal<Element | HTMLElement | null>(null);
-  const [position, setPosition] = Solid.createSignal<Position>({
-    'x': 0,
-    'y': 0,
+  const [initialPosition, setInitialPosition] = Solid.createSignal<CartesianPixelMeasures>();
+  const [distanceToCover, setDistanceToCover] = Solid.createSignal<CartesianPixelMeasures>();
+
+  Solid.onMount(() => {
+    const absoluteEndX = window.innerWidth * mainProps.endX;
+    const absoluteEndY = window.innerHeight * mainProps.endY;
+
+    setInitialPosition({
+      x: titleElement.offsetLeft,
+      y: titleElement.offsetTop,
+    });
+
+    setDistanceToCover({
+      x: absoluteEndX - titleElement.offsetLeft,
+      y: absoluteEndY - titleElement.offsetTop,
+    });
+
+    titleElement.style.position = 'fixed';
+    titleElement.style.transitionDuration = '500ms';
+    titleElement.style.transitionTimingFunction = 'easeInOut';
+
+    window.addEventListener('scroll', handleScroll);
   });
 
-  Solid.createEffect(()=>{
-    setTitleElementPointer(document.getElementById(thisTitleId));
-    console.info(titleElement);
-    setPosition({
-      'x': titleElement().clientLeft,
-      'y': titleElement().clientTop,
-    });
-  });
+  const handleScroll = (event: Event) => {
+    if (titleElement) {
+      const windowY = window.scrollY;
 
-  const handleScroll = () => {
-    const currentPosition = position();
-    setPosition({
-      'x': currentPosition.x + dx,
-      'y': currentPosition.y + dy,
-    });
+      const animationStage = Math.min(mainProps.throttle * windowY / distanceToCover().y, 1.0);
+
+      const horizontalShift = initialPosition().x + distanceToCover().x * animationStage;
+      const verticalShift = initialPosition().y + distanceToCover().y * animationStage;
+
+      titleElement.style.left = `${horizontalShift}px`;
+      titleElement.style.top = `${verticalShift}px`;
+    }
   };
 
   return (
     <h1
       onScroll={handleScroll}
-      id={thisTitleId}
+      ref={titleElement}
+      {...rest}
     >
       {props.children}
     </h1>
