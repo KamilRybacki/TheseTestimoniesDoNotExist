@@ -17,6 +17,7 @@
       "@style": ["src/style"],
       "@media": ["assets/media"],
       "@components": ["./src/components"],
+      "@hooks": ["./src/hooks"],
     }
   }
 }

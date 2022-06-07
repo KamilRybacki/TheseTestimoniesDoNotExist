@@ -1,4 +1,5 @@
 module.exports = {
-  heading: ['Fraunces'],
-  body: ['Commissioner'],
+  heading: ['Raleway'],
+  subheading: ['Cormorant'],
+  body: ['Halant'],
 };
