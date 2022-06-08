@@ -1,4 +1,4 @@
-const customTheme = require('./src/style/theme');
+const customTheme = require('./src/style/site/theme');
 
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],

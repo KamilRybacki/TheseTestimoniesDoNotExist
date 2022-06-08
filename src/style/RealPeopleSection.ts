@@ -13,14 +13,6 @@ export const RealPeopleSectionWrapper = stw('section')`
   bg-colors-secondary-50
 `;
 
-export const IntroParagraph = stw('p')`
-  w-full
-  font-body
-  text-3xl
-  text-left
-  mb-32
-`;
-
 export const RealPersonAvatar = stw(RealPerson)`
   w-[125px]
   h-[125px]
@@ -47,6 +39,14 @@ export const RealPersonInfoBox = stw('p')`
   p-2
 `;
 
+export const IntroParagraph = stw('p')`
+  w-full
+  font-body
+  text-3xl
+  text-left
+  my-32
+`;
+
 export const TheyExist = stw('span')`
   mt-40
   font-heading
@@ -57,10 +57,9 @@ export const TheyExist = stw('span')`
 `;
 
 export const TheyExistParagraph = stw('p')`
-  opacity-0
   text-justify
   font-body
-  text-3xl
+  text-2xl
   text-colors-primary-900
   mb-1
 `;
@@ -68,5 +67,14 @@ export const TheyExistParagraph = stw('p')`
 export const TheyWarnParagraph = stw(TheyExistParagraph)`
   mt-4
   font-body
-  text-5xl
+  text-4xl
+`;
+
+export const TheyReviewParagraph = stw(TheyExistParagraph)`
+  relative
+  mt-4
+  bottom-40
+  font-body
+  text-7xl
+  text-colors-accent-700
 `;

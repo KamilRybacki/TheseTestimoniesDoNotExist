@@ -1,16 +1,17 @@
 import * as Solid from 'solid-js';
 
-import {PersonSource, PersonWrapper} from './style';
+import corsEverywhereFetch from '@functions/corsfetch';
+
+import * as Style from '@style/PersonAvatar';
 
 const FAKE_PERSON_URL = 'https://thispersondoesnotexist.com/image';
-const CORS_PROXY_URL = 'https://dry-forest-06322.herokuapp.com';
 
-export const FakePerson: Element | Solid.Component | HTMLDivElement = (props) => {
+export const FakePersonAvatar: Element | Solid.Component | HTMLDivElement = (props) => {
   let personImage: HTMLImageElement;
   const [{style, order, className}, restProps] = Solid.splitProps(props, ['style', 'order', 'className']);
 
   const fetchFakePersonImage = async () => {
-    await fetch(`${CORS_PROXY_URL}/${FAKE_PERSON_URL}`)
+    await corsEverywhereFetch(FAKE_PERSON_URL)
         .then(async (response) => {
           await response.blob().then(
               (imageData) => {
@@ -27,18 +28,18 @@ export const FakePerson: Element | Solid.Component | HTMLDivElement = (props) =>
 
   return (
     // eslint-disable-next-line solid/no-react-specific-props
-    <PersonWrapper className={className} style={style ?? {}} {...restProps}>
-      <PersonSource ref={personImage}/>
-    </PersonWrapper>
+    <Style.PersonWrapper className={className} style={style ?? {}} {...restProps}>
+      <Style.PersonSource ref={personImage}/>
+    </Style.PersonWrapper>
   );
 };
 
-export const RealPerson: Element | Solid.Component | HTMLDivElement = (props) => {
+export const RealPersonAvatar: Element | Solid.Component | HTMLDivElement = (props) => {
   const [{style, className, src}, restProps] = Solid.splitProps(props, ['style', 'className', 'src']);
   return (
     // eslint-disable-next-line solid/no-react-specific-props
-    <PersonWrapper className={className} style={style} {...restProps}>
-      <PersonSource src={src}/>
-    </PersonWrapper>
+    <Style.PersonWrapper className={className} style={style} {...restProps}>
+      <Style.PersonSource src={src}/>
+    </Style.PersonWrapper>
   );
 };

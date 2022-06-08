@@ -20,7 +20,7 @@ export const theyExistFadeIn = [{opacity: 0, y: 20}, {
   ease: 'power2.in',
 }];
 
-export const theyExistFadeOut = {
+export const normalTextFadeOut = {
   opacity: 0,
   duration: 0.25,
   ease: 'power1.out',

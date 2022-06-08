@@ -4,7 +4,7 @@ import {gsap} from 'gsap';
 
 import ScrollWheelHint from '@components/ScrollWheelHint';
 
-import {HeroSectionWrapper, HeroTitle, HeroTitleVideo} from './style';
+import {HeroSectionWrapper, HeroTitle, HeroTitleVideo} from '@style/HeroSection';
 
 import HeroVideoSource from '@media/video/hero_section.mp4';
 
